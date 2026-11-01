@@ -1,6 +1,18 @@
 import pygame
 import random
 
+import sys
+import os
+import sys
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class Ostrava:
 
     def __init__(self):
@@ -67,8 +79,10 @@ class Ostrava:
 
     def load_images(self):
         self.images = []
-        for i in ["coin", "door","monster","robot"]:
-            self.images.append(pygame.image.load(i+".png"))
+        for i in ["coin", "door", "monster", "robot"]:
+            self.images.append(
+                pygame.image.load(resource_path(i + ".png"))
+            )
 
     def main_loop(self):
         while True:
@@ -101,7 +115,7 @@ class Ostrava:
                 if event.key == pygame.K_UP:
                     self.Upp = False
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
             
     def movement(self):
         if self.coins < 10:
@@ -234,9 +248,9 @@ class Ostrava:
                             if push_button_replay.collidepoint(i.pos):
                                 Ostrava()
                             elif push_button_quit.collidepoint(i.pos):
-                                exit()
+                               sys.exit()
                         if i.type == pygame.QUIT:
-                                        exit()
+                                        sys.exit()
 
 
 
